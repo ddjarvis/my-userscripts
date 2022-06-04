@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [YP] Collections Title
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.3
 // @description  try to take over the world!
 // @author       You
 // @match        https://www.youporn.com/collections/videos/*
@@ -18,7 +18,7 @@ var ypcPrefix = '[YP Collections]';
 var ypcName = document.querySelector('div.collection-infos h4').innerText.replace('Collection: ','');
 var ypcBy = document.querySelector('.collectionBy a')?.innerText;
 var ypcId = document.URL.match(/(?<=collections\/videos\/)\d+/)[0];
-var ypcPage = `${ypcPrefix} ${ypcName} «${ypcBy}» ${ypcId}`;
+var ypcPage = `${ypcPrefix} ${ypcName} «${ypcBy}» {${ypcId}}`;
 document.title = ypcPage;
 })();
 
