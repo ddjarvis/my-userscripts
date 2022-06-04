@@ -18,3 +18,4 @@ var ypcName = document.querySelector('div.collection-infos h4').innerText.replac
 var ypcPage = ypcPrefix + ' ' + ypcName;
 document.title = ypcPage;
 })();
+
