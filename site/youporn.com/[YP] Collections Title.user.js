@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [YP] Collections Title
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.0.1
 // @description  try to take over the world!
 // @author       You
 // @match        https://www.youporn.com/collections/videos/*
@@ -27,11 +27,16 @@ function main () {
 
 
 function setPageName() {
+	var ypcNameElem = document.querySelector('div.collection-infos h4');
+
 	var ypcPrefix = '[YP Collections]';
-	var ypcName = document.querySelector('div.collection-infos h4').innerText.replace('Collection: ','');
+	var ypcName = ypcNameElem.innerText.replace('Collection: ','');
 	var ypcBy = document.querySelector('.collectionBy a')?.innerText;
 	var ypcId = document.URL.match(/(?<=collections\/videos\/)\d+/)[0];
 	var ypcPage = `${ypcPrefix} ${ypcName} «${ypcBy}» {${ypcId}}`;
+
+	ypcNameElem.dataset.ypcName = ypcName;
+
 	document.title = ypcPage;
 }
 
@@ -82,7 +87,9 @@ function addPlaylistName() {
 function setPlaylistName() {
 	const id = getYPC().id;
 	const page = getYPC().page;
+	const name = document.querySelector('[data-ypc-name]').dataset.ypcName;
 	let plname = ['YPC',id,page].filter(x=>x).join('-');
+	plname += ` -- ${name}`;
 	document.getElementById('pln-name').innerText = plname;
 }
 
